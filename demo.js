@@ -1,4 +1,4 @@
-
+/*
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
 var queryUrl = baseUrl + '/query';
 
@@ -281,3 +281,4 @@ $(document).ready(function() {
 		$("#meritveVitalnihZnakovEHRid").val($(this).val());
 	});
 });
+*/
