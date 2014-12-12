@@ -29,7 +29,7 @@
 <body role="document">
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- LEKARNAR.COM
             <div class="navbar-header">
@@ -46,7 +46,8 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Domov</a></li>
                     <li class="active"><a href="vnosUporabnika.html">Dodaj uporabnika</a></li>
-                    <li><a href="vnosPodatkov.html">Vnos podatkov</a></li>
+                    <li><a href="vnosMeritev.html">Vnos meritev</a></li>
+                    <li><a href="izpis.html">Izpis meritev in zdravil</a></li>
                     <li><a href="isciLekarno.html">Najdi lekarno</a></li>
                     <li><a href="about.html">O tej spletni strani</a></li>
                 </ul>
@@ -58,11 +59,48 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-        <h1>IT WORKS!</h1>
-        <p>Kreiranje uporabnika.</p>
-    </div>
-    </div> <!-- /container -->
+    <p></p>
+    <div class="row">
+        <div class="col-lg-14 col-md-14 col-sm-14">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8"><b>Ustvari EHR uporabnika</b></div>
+                        <!-- <div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiPredlogoBolnika"><option value=""></option><option value="Pujsa,Pepa,1938-10-30T14:58">Pujsa Pepa</option></select></div> -->
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h4><span class="label label-success">Ime</span></h4>
+                    <input type="text" class="form-control">
+                    <h4><span class="label label-success">Priimek</span></h4>
+                    <input type="text" class="form-control">
+                    <h4><span class="label label-success">Spol</span></h4>
+                    <select name="spol" class="form-control">
+                        <option value="NULL"></option>
+                        <option value="MALE">Moški</option>
+                        <option value="FEMALE">Ženski</option>
+                    </select>
+                    <h4><span class="label label-success">Datum rojstva (v obliki DD-MM-YYYY, npr.: 07.09.1990)</span></h4>
+                    <input type="text" class="form-control">
 
+
+                    <!--
+                    <span class="label label-default">Ime</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Osama">
+                    <span class="label label-default">Priimek</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Bin Laden">
+                    <span class="label label-default">Datum rojstva</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="1957-03-10T09:08">
+                    <button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke o bolniku</button><span id="kreirajSporocilo"></span>
+                    -->
+
+                </div>
+                <div class="form-group" style="text-align:center">
+                <button type="button" class="btn btn-success">Dodaj podatke</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div> <!-- /container -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
