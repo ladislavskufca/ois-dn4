@@ -108,7 +108,7 @@ function preberiMeritveVitalnihZnakov() {
             headers: {"Ehr-Session": sessionId},
             success: function (data) {
                 var party = data.party;
-                $("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + tip + "'</b> uporabnika <b>'" + party.firstNames + " " + party.lastNames + "'</b>.</span><br/><br/>");
+                $("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + tip + "'</b> uporabnika <b>'" + party.firstNames + " " + party.lastNames + "'</b>. Pridobivanje lahko traja nekaj sekund.</span><br/><br/>");
                 if (tip == "telesna temperatura") {
                     $.ajax({
                         url: baseUrl + "/view/" + ehrId + "/" + "body_temperature",
@@ -200,7 +200,6 @@ function preberiMeritveVitalnihZnakov() {
                                     results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].height + " " 	+ res[i].unit + "</td>";
                                 }
                                 results += "</table>";
-                                kopija=results;
                                 $("#rezultatMeritveVitalnihZnakov").append(results);
 
                             } else {
@@ -266,7 +265,6 @@ function preberiMeritveVitalnihZnakov() {
                                     results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].spO2 + " %" + "</td>";
                                 }
                                 results += "</table>";
-                                kopija=results;
                                 $("#rezultatMeritveVitalnihZnakov").append(results);
 
                             } else {
@@ -397,9 +395,141 @@ function preberiMeritveVitalnihZnakov() {
                     }
        
                 }
+                else if (tip == "simptomi") {
+                    $.ajax({
+                        url: baseUrl + "/view/" + ehrId + "/" + "problem",
+                        type: 'GET',
+                        headers: {"Ehr-Session": sessionId},
+                        success: function (res) {
+                            if (res.length > 0) {
+                                var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Simptomi</th></tr>";
+                                for (var i in res) {
+                                    results += "<tr><td>" + res[i].onset_date + "</td><td class='text-right'>" + res[i].diagnosis + "</td>";
+                                }
+                                results += "</table>";
+                                $("#rezultatMeritveVitalnihZnakov").append(results);
+
+                            } else {
+                                $("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
+                            }
+
+                        },
+                        error: function() {
+                            $("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+                            console.log(JSON.parse(err.responseText).userMessage);
+                        }
+
+                    });
+                }
             },
             error: function(err) {
                 $("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+                console.log(JSON.parse(err.responseText).userMessage);
+            }
+        });
+    }
+}
+
+function dodajMeritveVitalnihZnakov() {
+    sessionId = getSessionId();
+
+    var ehrId = $("#dodajEHR").val();
+    var datumInUra = $("#dodajDatumInUra").val();
+    var telesnaVisina = $("#dodajTelesnaVisina").val();
+    var telesnaTeza = $("#dodajTelesnaTeza").val();
+    var telesnaTemperatura = $("#dodajTelesnaTemperatura").val();
+    var sistolicniKrvniTlak = $("#dodajKrvniTlakSistolicni").val();
+    var diastolicniKrvniTlak = $("#dodajKrvniTlakDiastolicni").val();
+    var nasicenostKrviSKisikom = $("#dodajNasicenostKrviSKisikom").val();
+    var merilec = $("#dodajMerilec").val();
+
+    if (!ehrId || !datumInUra || !telesnaVisina || !telesnaTeza || !telesnaTemperatura || !sistolicniKrvniTlak || !diastolicniKrvniTlak || !nasicenostKrviSKisikom || !merilec || ehrId.trim().length == 0) {
+        $("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+    } else {
+        $.ajaxSetup({
+            headers: {"Ehr-Session": sessionId}
+        });
+        var podatki = {
+            // Preview Structure: https://rest.ehrscape.com/rest/v1/template/Vital%20Signs/example
+            "ctx/language": "en",
+            "ctx/territory": "SI",
+            "ctx/time": datumInUra,
+            "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
+            "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
+            "vital_signs/body_temperature/any_event/temperature|magnitude": telesnaTemperatura,
+            "vital_signs/body_temperature/any_event/temperature|unit": "°C",
+            "vital_signs/blood_pressure/any_event/systolic": sistolicniKrvniTlak,
+            "vital_signs/blood_pressure/any_event/diastolic": diastolicniKrvniTlak,
+            "vital_signs/indirect_oximetry:0/spo2|numerator": nasicenostKrviSKisikom
+        };
+        var parametriZahteve = {
+            "ehrId": ehrId,
+            templateId: 'Vital Signs',
+            format: 'FLAT',
+            committer: merilec
+        };
+        $.ajax({
+            url: baseUrl + "/composition?" + $.param(parametriZahteve),
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(podatki),
+            success: function (res) {
+                console.log(res.meta.href);
+                $("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+            },
+            error: function(err) {
+                $("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+                console.log(JSON.parse(err.responseText).userMessage);
+            }
+        });
+    }
+}
+
+function dodajSimptome() {
+
+    var simptomi = "";
+    var izbraniElementi = document.getElementsByClassName('checkbox');
+    for (var i = 0; izbraniElementi[i]; i++) {
+        if (izbraniElementi[i].checked) simptomi += izbraniElementi[i].value + ", ";
+    }
+    console.log(simptomi);
+
+    sessionId = getSessionId();
+
+    var ehrId = $("#dodajEHRSimptomi").val();
+    var datumInUra = $("#dodajDatumInUraSimptomi").val();
+
+
+    if (!ehrId || !datumInUra || ehrId.trim().length == 0) {
+        $("#dodajSimptomeSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+    } else {
+        $.ajaxSetup({
+            headers: {"Ehr-Session": sessionId}
+        });
+        var podatki = {
+            // Preview Structure: https://rest.ehrscape.com/rest/v1/template/Vital%20Signs/example
+            "ctx/language": "en",
+            "ctx/territory": "SI",
+            "ctx/time": datumInUra,
+            "problem/diagnosis": simptomi
+        };
+        var parametriZahteve = {
+            "ehrId": ehrId,
+            templateId: 'Vital Signs',
+            format: 'FLAT',
+            committer: 'uporabnik'
+        };
+        $.ajax({
+            url: baseUrl + "/composition?" + $.param(parametriZahteve),
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(podatki),
+            success: function (res) {
+                console.log(res.meta.href);
+                $("#dodajSimptomeSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+            },
+            error: function(err) {
+                $("#dodajSimptomeSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
                 console.log(JSON.parse(err.responseText).userMessage);
             }
         });
@@ -420,4 +550,19 @@ $(document).ready(function() {
         $("#rezultatMeritveVitalnihZnakov").html("");
         $("#meritveVitalnihZnakovEHRid").val($(this).val());
     });
+
+    $('#preberiObstojeciVitalniZnak').change(function() {
+        $("#dodajMeritveVitalnihZnakovSporocilo").html("");
+        var podatki = $(this).val().split("|");
+        $("#dodajEHR").val(podatki[0]);
+        $("#dodajDatumInUra").val(podatki[1]);
+        $("#dodajTelesnaVisina").val(podatki[2]);
+        $("#dodajTelesnaTeza").val(podatki[3]);
+        $("#dodajTelesnaTemperatura").val(podatki[4]);
+        $("#dodajKrvniTlakSistolicni").val(podatki[5]);
+        $("#dodajKrvniTlakDiastolicni").val(podatki[6]);
+        $("#dodajNasicenostKrviSKisikom").val(podatki[7]);
+        $("#dodajMerilec").val(podatki[8]);
+    });
+
 });

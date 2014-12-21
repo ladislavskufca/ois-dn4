@@ -75,32 +75,33 @@
                         </div>
                         <div class="panel-body">
                             <h4><span class="label label-success">EHR ID</span></h4>
-                            <input type="text" class="form-control">
-                            <h4><span class="label label-success">Datum in ura (v obliki YYYY-DD-MMTHH:MMZ, npr.: 1802-02-12T00:00Z)</span></h4>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajEHR">
+                            <h4><span class="label label-success">Datum in ura (v obliki YYYY-MM-DDTHH:MMZ, npr.: 1802-02-12T00:00Z)</span></h4>
+                            <input type="text" class="form-control" id="dodajDatumInUra">
                             <h4><span class="label label-success">Telesna višina</span></h4><div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajTelesnaVisina">
                             <span class="input-group-addon">cm</span></div>
                             <h4><span class="label label-success">Telesna teža</span></h4><div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajTelesnaTeza">
                             <span class="input-group-addon">kg</span></div>
                             <h4><span class="label label-success">Telesna temperatura</span></h4><div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajTelesnaTemperatura">
                             <span class="input-group-addon">°C</span></div>
                             <h4><span class="label label-success">Sistolični krvni tlak</span></h4><div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajKrvniTlakSistolicni">
                             <span class="input-group-addon">mm Hg</span></div>
                             <h4><span class="label label-success">Diastolični krvni tlak</span></h4><div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajKrvniTlakDiastolicni">
                             <span class="input-group-addon">mm Hg</span></div>
                             <h4><span class="label label-success">Nasičenost krvi s kisikom</span></h4><div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajNasicenostKrviSKisikom">
                             <span class="input-group-addon">%</span></div>
                             <h4><span class="label label-success">Merilec</span></h4>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajMerilec">
                         </div>
                         <div class="form-group" style="text-align:center">
-                            <button type="button" class="btn btn-success">Dodaj podatke</button>
+                            <button type="button" class="btn btn-success" onclick="dodajMeritveVitalnihZnakov()">Dodaj podatke</button>
+                            <h4><span id="dodajMeritveVitalnihZnakovSporocilo"></span></h4>
                         </div>
                     </div>
                 </div>
@@ -119,80 +120,81 @@
                         </div>
                         <div class="panel-body">
                             <h4><span class="label label-success">EHR ID</span></h4>
-                            <input type="text" class="form-control">
-                            <h4><span class="label label-success">Datum in ura (v obliki DD-MM-YYYYTHH:MM:Z, npr.: 07.09.1990T11:40:Z)</span></h4>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="dodajEHRSimptomi">
+                            <h4><span class="label label-success">Datum in ura (v obliki YYYY-MM-DDTHH:MMZ, npr.: 1802-02-12T00:00Z)</span></h4>
+                            <input type="text" class="form-control" id="dodajDatumInUraSimptomi">
 
                             <h4><span class="label label-success">Pojavljajo se naslednji simptomi:</span></h4>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">vnetje</label>
+                                <label><input class="checkbox" type="checkbox" value="vnetje">vnetje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">bolečina</label>
+                                <label><input class="checkbox" type="checkbox" value="bolečina">bolečina</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">prehlad</label>
+                                <label><input class="checkbox" type="checkbox" value="prehlad">prehlad</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">glavobol</label>
+                                <label><input class="checkbox" type="checkbox" value="glavobol">glavobol</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">vročina</label>
+                                <label><input class="checkbox" type="checkbox" value="vročina">vročina</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">gripa</label>
+                                <label><input class="checkbox" type="checkbox" value="gripa">gripa</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">kašelj</label>
+                                <label><input class="checkbox" type="checkbox" value="kašelj">kašelj</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">draženje</label>
+                                <label><input class="checkbox" type="checkbox" value="draženje">draženje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">nahod</label>
+                                <label><input class="checkbox" type="checkbox" value="nahod">nahod</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">zobobol</label>
+                                <label><input class="checkbox" type="checkbox" value="zobobol">zobobol</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">poškodba</label>
+                                <label><input class="checkbox" type="checkbox" value="poškodba">poškodba</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">prebava</label>
+                                <label><input class="checkbox" type="checkbox" value="prebava">prebava</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">zaprtje</label>
+                                <label><input class="checkbox" type="checkbox" value="zaprtje">zaprtje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">srbenje</label>
+                                <label><input class="checkbox" type="checkbox" value="srbenje">srbenje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">stres</label>
+                                <label><input class="checkbox" type="checkbox" value="stres">stres</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">alergija</label>
+                                <label><input class="checkbox" type="checkbox" value="alergija">alergija</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">okužba</label>
+                                <label><input class="checkbox" type="checkbox" value="okužba">okužba</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">migrena</label>
+                                <label><input class="checkbox" type="checkbox" value="migrena">migrena</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">artritis</label>
+                                <label><input class="checkbox" type="checkbox" value="artritis">artritis</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">kihanje</label>
+                                <label><input class="checkbox" type="checkbox" value="kihanje">kihanje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input type="checkbox" value="">glivice</label>
+                                <label><input class="checkbox" type="checkbox" value="glivice">glivice</label>
                             </div>
 
 
 
                         </div>
                         <div class="form-group" style="text-align:center">
-                            <button type="button" class="btn btn-success">Dodaj podatke</button>
+                            <button type="button" class="btn btn-success" onclick="dodajSimptome()">Dodaj podatke</button>
+                            <h4><span id="dodajSimptomeSporocilo"></span></h4>
                         </div>
                     </div>
                 </div>
