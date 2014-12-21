@@ -153,40 +153,6 @@ function preberiMeritveVitalnihZnakov() {
                             console.log(JSON.parse(err.responseText).userMessage);
                         }
                     });
-                } else if (tip == "telesna temperatura AQL") {
-                    var AQL =
-                        "select " +
-                        "t/data[at0002]/events[at0003]/time/value as cas, " +
-                        "t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as temperatura_vrednost, " +
-                        "t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units as temperatura_enota " +
-                        "from EHR e[e/ehr_id/value='" + ehrId + "'] " +
-                        "contains OBSERVATION t[openEHR-EHR-OBSERVATION.body_temperature.v1] " +
-                        "where t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude<35 " +
-                        "order by t/data[at0002]/events[at0003]/time/value desc " +
-                        "limit 10";
-                    $.ajax({
-                        url: baseUrl + "/query?" + $.param({"aql": AQL}),
-                        type: 'GET',
-                        headers: {"Ehr-Session": sessionId},
-                        success: function (res) {
-                            var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna temperatura</th></tr>";
-                            if (res) {
-                                var rows = res.resultSet;
-                                for (var i in rows) {
-                                    results += "<tr><td>" + rows[i].cas + "</td><td class='text-right'>" + rows[i].temperatura_vrednost + " " 	+ rows[i].temperatura_enota + "</td>";
-                                }
-                                results += "</table>";
-                                $("#rezultatMeritveVitalnihZnakov").append(results);
-                            } else {
-                                $("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
-                            }
-
-                        },
-                        error: function() {
-                            $("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
-                            console.log(JSON.parse(err.responseText).userMessage);
-                        }
-                    });
                 }
                 else if (tip == "telesna višina") {
                     $.ajax({
