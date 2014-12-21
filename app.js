@@ -453,6 +453,52 @@ function predlagajRastline() {
                         else simptomiZaEHR += res[i].diagnosis;
                     }
                     //$("#izpisiRastline").append(simptomiZaEHR);
+
+
+                    readTextFile("data.txt");
+
+                    var podatkiOSimptomih = simptomiZaEHR;
+                    var vejica = podatkiOSimptomih.indexOf(",");
+                    var simptom1;
+
+                    if (vejica == -1) simptom1 = podatkiOSimptomih;
+                    else {
+                        simptom1 = podatkiOSimptomih.substring(0, vejica);
+                    }
+
+                    simptom1 = simptom1.toUpperCase();
+
+                    if (simptom1 == "POŠKODBA") simptom1 = "POŠKODB";
+
+                    var stringIsci = dataTXT.indexOf(simptom1);
+
+                    if(stringIsci != -1) {
+
+                        var indeks = 1;
+                        var stringStRastline = 1;
+                        while (stringIsci > stringStRastline) {
+                            stringStRastline = dataTXT.indexOf(indeks + ".");
+                            indeks++
+                        }
+
+                        var iskaniIndeks = dataTXT.indexOf(indeks - 2 + ".");
+                        var iskaniIndeks2 = dataTXT.indexOf(indeks - 1 + ".");    //do tukaj pišem
+                        var celTXT = dataTXT;
+
+                        //preveri če indeks za zadnjega obstaja !!
+
+                        var izpis;
+                        if (iskaniIndeks < 10) izpis = celTXT.substring(iskaniIndeks + 2, iskaniIndeks2);
+                        else izpis = celTXT.substring(iskaniIndeks + 3, iskaniIndeks2);
+
+                        //console.log(izpis);
+
+                        $("#izpisiRastline").append("<h4>Glede na vse podatke, ki ste jih vnesli v aplikacijo, je za vas najbolj primerna naslednja rastlina: </h4>");
+                        $("#izpisiRastline").append(izpis);
+                    }
+                    else {
+                        $("#izpisiRastline").append("<h4>Glede na vnešene podatke žal ni bilo mogoče najti primerne zdravilne rastline za vas!</h4>");
+                    }
                 } else {
                     $("#predlagajZdravileRastlineSporocilo").html("<span class='obvestilo label label-warning fade-in'>Podatki o simptomih za tega uporabnika so prazni!</span>");
                 }
@@ -463,45 +509,9 @@ function predlagajRastline() {
             }
 
         });
+
     }
 
-    readTextFile("data.txt");
-
-    var podatkiOSimptomih = simptomiZaEHR;
-    var vejica = podatkiOSimptomih.indexOf(",");
-    var simptom1;
-
-    if (vejica == -1) simptom1 = podatkiOSimptomih;
-    else {
-        simptom1 = podatkiOSimptomih.substring(0, vejica);
-    }
-
-    simptom1 = simptom1.toUpperCase();
-    if (simptom1 == "POŠKODBA") simptom1 = "POŠKODB";
-
-    var stringIsci = dataTXT.indexOf(simptom1);
-
-    var indeks = 1;
-    var stringStRastline = 1;
-    while (stringIsci > stringStRastline) {
-        stringStRastline = dataTXT.indexOf(indeks + ".");
-        indeks++
-    }
-
-    var iskaniIndeks = dataTXT.indexOf(indeks-2 + ".");
-    var iskaniIndeks2 = dataTXT.indexOf(indeks-1 + ".");    //do tukaj pišem
-    var celTXT = dataTXT;
-
-    //preveri če indeks za zadnjega obstaja !!
-
-    var izpis;
-    if (iskaniIndeks < 10) izpis = celTXT.substring(iskaniIndeks + 2, iskaniIndeks2);
-    else izpis = celTXT.substring(iskaniIndeks + 3, iskaniIndeks2);
-
-    //console.log(izpis);
-
-    $("#izpisiRastline").append("<h4>Glede na vse podatke, ki ste jih vnesli v aplikacijo, je za vas najbolj primerna naslednja rastlina: </h4>");
-    $("#izpisiRastline").append(izpis);
 
 }
 
