@@ -116,9 +116,9 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6"><b>Izpis zdravil</b></div>
+                            <div class="col-lg-6 col-md-6 col-sm-6"><b>Izpis zdravilnih rastlin</b></div>
                             <div class="col-lg-3 col-md-3 col-sm-3"></div>
-                            <div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiEHRZaZdravilaVnos"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option></select></div>
+                            <div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiEHRZaRastlineDropdown"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option></select></div>
                             <!--<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciEHR"><option value=""></option><option value="254f791d-2e7c-49d9-b646-376f62d6ead5">Dejan Lavbič</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option></select></div>-->
                         </div>
                     </div>
@@ -128,17 +128,23 @@
                         <input id="preberiEHRid" type="text" class="form-control">-->
                         <!--<input type="text" class="form-control"-->
                         <h4><span class="label label-success">EHR ID</span></h4>
-                        <input id="preberiEHRZaZdravila" type="text" class="form-control">
+                        <input id="preberiEHRZaRastline" type="text" class="form-control">
                     </div>
                     <div class="form-group" style="text-align:center">
                         <!-- BRANJE OSNOVNIH PODATKOV
                         <button type="button" class="btn btn-success" onclick="preberiEHRzapis()">Izpiši podatke</button>-->
-                        <button type="button" class="btn btn-success" onclick="predlagajZdravila()">Predlagaj zdravila</button>
+                        <button type="button" class="btn btn-success" onclick="predlagajRastline()">Predlagaj zdravilno rastlino</button>
                     </div>
                     <div class="form-group" style="text-align:center">
                         <!-- BRANJE OSNOVNIH PODATKOV
                         <h4><span id="preberiSporocilo"></span></h4>-->
-                        <h4><span id="predlagajZdravilaSporocilo"></span></h4>
+                        <h4><span id="predlagajZdravileRastlineSporocilo"></span></h4>
+                        <!--<div id="rezultatMeritveVitalnihZnakov" style="text-align:left"></div>-->
+                    </div>
+                    <div class="form-group" style="text-align:center">
+                        <!-- BRANJE OSNOVNIH PODATKOV
+                        <h4><span id="preberiSporocilo"></span></h4>-->
+                        <span id="izpisiRastline"></span>
                         <!--<div id="rezultatMeritveVitalnihZnakov" style="text-align:left"></div>-->
                     </div>
                 </div>

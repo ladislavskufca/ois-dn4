@@ -430,10 +430,101 @@ function preberiMeritveVitalnihZnakov() {
     }
 }
 
-function predlagajZdravila() {
-    http://www.lekarnar.com/oddelki/zdravila-brez-recepta?simptom_facet=vnetje&sort=score
+function predlagajRastline() {
 
-    console.log("IT WORKS");
+    sessionId = getSessionId();
+
+    var ehrId = $("#preberiEHRZaRastline").val();
+    var simptomiZaEHR = "";
+
+    if (!ehrId || ehrId.trim().length == 0) {
+        $("#predlagajZdravileRastlineSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevan podatek!");
+    } else {
+
+        $.ajax({
+            url: baseUrl + "/view/" + ehrId + "/" + "problem",
+            type: 'GET',
+            headers: {"Ehr-Session": sessionId},
+            async: false,
+            success: function (res) {
+                if (res.length > 0) {
+                    for (var i in res) {
+                        if (simptomiZaEHR != "") simptomiZaEHR += ", " + res[i].diagnosis;
+                        else simptomiZaEHR += res[i].diagnosis;
+                    }
+                    //$("#izpisiRastline").append(simptomiZaEHR);
+                } else {
+                    $("#predlagajZdravileRastlineSporocilo").html("<span class='obvestilo label label-warning fade-in'>Podatki o simptomih za tega uporabnika so prazni!</span>");
+                }
+            },
+            error: function() {
+                $("#predlagajZdravileRastlineSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+                console.log(JSON.parse(err.responseText).userMessage);
+            }
+
+        });
+    }
+
+    readTextFile("data.txt");
+
+    var podatkiOSimptomih = simptomiZaEHR;
+    var vejica = podatkiOSimptomih.indexOf(",");
+    var simptom1;
+
+    if (vejica == -1) simptom1 = podatkiOSimptomih;
+    else {
+        simptom1 = podatkiOSimptomih.substring(0, vejica);
+    }
+
+    simptom1 = simptom1.toUpperCase();
+    if (simptom1 == "POŠKODBA") simptom1 = "POŠKODB";
+
+    var stringIsci = dataTXT.indexOf(simptom1);
+
+    var indeks = 1;
+    var stringStRastline = 1;
+    while (stringIsci > stringStRastline) {
+        stringStRastline = dataTXT.indexOf(indeks + ".");
+        indeks++
+    }
+
+    var iskaniIndeks = dataTXT.indexOf(indeks-2 + ".");
+    var iskaniIndeks2 = dataTXT.indexOf(indeks-1 + ".");    //do tukaj pišem
+    var celTXT = dataTXT;
+
+    //preveri če indeks za zadnjega obstaja !!
+
+    var izpis;
+    if (iskaniIndeks < 10) izpis = celTXT.substring(iskaniIndeks + 2, iskaniIndeks2);
+    else izpis = celTXT.substring(iskaniIndeks + 3, iskaniIndeks2);
+
+    //console.log(izpis);
+
+    $("#izpisiRastline").append("<h4>Glede na vse podatke, ki ste jih vnesli v aplikacijo, je za vas najbolj primerna naslednja rastlina: </h4>");
+    $("#izpisiRastline").append(izpis);
+
+}
+
+var dataTXT;
+
+function readTextFile(file)
+{   //vir: stackoverflow: http://stackoverflow.com/questions/14446447/javascript-read-local-text-file
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                //console.log(allText);
+                dataTXT=allText;
+                //alert(allText);
+            }
+        }
+    }
+    rawFile.send(null);
 }
 
 function dodajMeritveVitalnihZnakov() {
@@ -491,6 +582,7 @@ function dodajMeritveVitalnihZnakov() {
     }
 }
 
+
 function dodajSimptome() {
 
     var simptomi = "";
@@ -501,8 +593,6 @@ function dodajSimptome() {
             else simptomi += izbraniElementi[i].value;
         }
     }
-
-    console.log(simptomi);
 
     sessionId = getSessionId();
 
