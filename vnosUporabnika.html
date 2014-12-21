@@ -68,7 +68,18 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-8"><b>Ustvari EHR uporabnika</b></div>
-                            <!-- <div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiPredlogoBolnika"><option value=""></option><option value="Pujsa,Pepa,1938-10-30T14:58">Pujsa Pepa</option></select></div> -->
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <select class="form-control input-sm" id="preberiPredlogoBolnika">
+                                    <option value=""></option>
+                                    <option value="Medvedek,PU,1938-10-30T14:58,MALE">Medvedek PU</option>
+                                    <option value="Zelena,Kapica,1999-09-09T09:09,FEMALE">Zelena Kapica</option>
+                                    <option value="Mario,Vodovodar,2000-02-20T20:2,MALE">Mario Vodovodar</option>
+                                </select>
+                            </div>
+                            <!--var spol = $('input[name="optionsRadios"]:checked').val();
+                            var spolString = "MALE";
+                            if (spol == "option2") spolString = "FEMALE";
+                            var datumRojstva = $("#kreirajDatumRojstva").val();-->
                         </div>
                     </div>
                     <div class="panel-body">
@@ -78,8 +89,8 @@
                         <input type="text" class="form-control" id="kreirajPriimek">
                         <h4><span class="label label-success">Spol</span></h4>
                         <div class="radio" id="kreirajSpol">
-                                <label><input type="radio" name="optionsRadios" value="option1">Moški</label>
-                                <label><input type="radio" name="optionsRadios" value="option2">Ženska</label>
+                                <label><input type="radio" name="optionsRadios" value="option1" id="option1">Moški</label>
+                                <label><input type="radio" name="optionsRadios" value="option2" id="option2">Ženska</label>
                         </div>
                         
                         <h4><span class="label label-success">Datum in ura rojstva (v obliki YYYY-MM-DDTHH:MMZ, npr.: 1802-02-12T00:00Z)</span></h4>

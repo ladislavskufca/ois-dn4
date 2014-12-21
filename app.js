@@ -653,10 +653,24 @@ function dodajSimptome() {
 
 
 $(document).ready(function() {
-    $('#preberiObstojeciEHR').change(function() {
+    /*$('#preberiObstojeciEHR').change(function() {
         //vsakič ko zamenjamo osebo iz dropdown menija se zgodi naslednje
         $("#preberiSporocilo").html("");
         $("#preberiEHRid").val($(this).val());
+    });*/
+
+    $('#preberiPredlogoBolnika').change(function() {
+        $("#kreirajSporocilo").html("");
+        var podatki = $(this).val().split(",");
+        $("#kreirajIme").val(podatki[0]);
+        $("#kreirajPriimek").val(podatki[1]);
+        $("#kreirajDatumRojstva").val(podatki[2]);
+        if (podatki[3] == "MALE") document.getElementById("option1").checked = true;
+        else if (podatki[3] == "FEMALE") document.getElementById("option2").checked = true;
+        else {
+            document.getElementById("option1").checked = false;
+            document.getElementById("option2").checked = false;
+        }
     });
 
     $('#preberiEhrIdZaVitalneZnake').change(function() {
@@ -678,5 +692,6 @@ $(document).ready(function() {
         $("#dodajNasicenostKrviSKisikom").val(podatki[7]);
         $("#dodajMerilec").val(podatki[8]);
     });
+
 
 });
