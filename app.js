@@ -430,6 +430,12 @@ function preberiMeritveVitalnihZnakov() {
     }
 }
 
+function predlagajZdravila() {
+    http://www.lekarnar.com/oddelki/zdravila-brez-recepta?simptom_facet=vnetje&sort=score
+
+    console.log("IT WORKS");
+}
+
 function dodajMeritveVitalnihZnakov() {
     sessionId = getSessionId();
 
