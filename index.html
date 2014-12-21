@@ -27,9 +27,20 @@
 
 	<script src="app.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.min.js"></script>
+	<script src="d3pie.min.js"></script>
+	<script>
+		$(function(){
+			$("#graf").load("graf.html");
+		});
+	</script>
+
 </head>
 
 <body role="document">
+	<link rel="import" href="graf.html">
+
+
 
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,8 +64,12 @@
 		<h2>Dobrodošli!</h2>
 		<p>Ta spletna stran vam omogoča beleženje vaših vitalnih znakov in simptomov. Nato vam glede na vnešene podatke izpiše zdravilno rastlino, ki vam lahko olajša težave.</p>
 
+		<p>Zakaj ravno zdravilno rastlino in ne zdravila? Spodnji graf pove več kot 1000 besed. Po mojem mnenju so procenti izdanih receptov za ljudi v srednjih letih previsoki. Le ti že imajo nekaj znanja o zdravilnih rastlinah, ki pa ga žal ne izkoriščajo in se raje poslužujejo zdravil iz lekarn. Ta aplikacija je tako namenjana prav njim.</p>
+		<p></p>
+		<div id="graf"></div>
+		<p></p>
 		<p>Kako začeti? Preprosto! V vrstici za krmarjenje izberite željeno možnost in stopite korak bližje k rešitvi vaše težave!</p>
-		<!-- <p><a href="#" class="btn btn-primary btn-lg" role="button">Izvedi več &raquo;</a></p> -->
+
 	</div>
 
 </div> <!-- /container -->

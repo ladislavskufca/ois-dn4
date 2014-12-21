@@ -655,12 +655,6 @@ function dodajSimptome() {
 
 
 $(document).ready(function() {
-    /*$('#preberiObstojeciEHR').change(function() {
-        //vsakič ko zamenjamo osebo iz dropdown menija se zgodi naslednje
-        $("#preberiSporocilo").html("");
-        $("#preberiEHRid").val($(this).val());
-    });*/
-
     $('#preberiPredlogoBolnika').change(function() {
         $("#kreirajSporocilo").html("");
         var podatki = $(this).val().split(",");
