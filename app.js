@@ -488,8 +488,8 @@ function predlagajRastline() {
                         //preveri če indeks za zadnjega obstaja !!
 
                         var izpis;
-                        if (iskaniIndeks < 10) izpis = celTXT.substring(iskaniIndeks + 2, iskaniIndeks2);
-                        else izpis = celTXT.substring(iskaniIndeks + 3, iskaniIndeks2);
+                        if (iskaniIndeks < 10) izpis = celTXT.substring(iskaniIndeks, iskaniIndeks2);   //spremeni da odstraniš zaporedno številko
+                        else izpis = celTXT.substring(iskaniIndeks, iskaniIndeks2);
 
                         //console.log(izpis);
 
@@ -582,7 +582,8 @@ function dodajMeritveVitalnihZnakov() {
             data: JSON.stringify(podatki),
             success: function (res) {
                 console.log(res.meta.href);
-                $("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+                //$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+                $("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + "Uspešno vnešene nove meritve!" + "</span>");
             },
             error: function(err) {
                 $("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -640,7 +641,8 @@ function dodajSimptome() {
             data: JSON.stringify(podatki),
             success: function (res) {
                 console.log(res.meta.href);
-                $("#dodajSimptomeSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+                //$("#dodajSimptomeSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+                $("#dodajSimptomeSporocilo").html("<span class='obvestilo label label-success fade-in'>" + "Uspešno dodani novi simptomi!" + "</span>");
             },
             error: function(err) {
                 $("#dodajSimptomeSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -679,6 +681,12 @@ $(document).ready(function() {
         $("#meritveVitalnihZnakovEHRid").val($(this).val());
     });
 
+    $('#preberiEHRZaRastlineDropdown').change(function() {
+        $("#predlagajZdravileRastlineSporocilo").html("");
+        $("#izpisiRastline").html("");
+        $("#preberiEHRZaRastline").val($(this).val());
+    });
+
     $('#preberiObstojeciVitalniZnak').change(function() {
         $("#dodajMeritveVitalnihZnakovSporocilo").html("");
         var podatki = $(this).val().split("|");
@@ -693,5 +701,42 @@ $(document).ready(function() {
         $("#dodajMerilec").val(podatki[8]);
     });
 
+    $('#preberiObstojeciSimptom').change(function() {
+        $("#dodajSimptomeSporocilo").html("");
+        var podatki = $(this).val().split("|");
+        $("#dodajEHRSimptomi").val(podatki[0]);
+        $("#dodajDatumInUraSimptomi").val(podatki[1]);
+        for (var i in obkljukaniSimptomi) {
+            if (document.getElementById(obkljukaniSimptomi[i]).checked) {
+                document.getElementById(obkljukaniSimptomi[i]).checked = false;
+            }
+        }
+        if (podatki[2] != null && podatki[3] != null) {
+            document.getElementById(podatki[2]).checked = true;
+            document.getElementById(podatki[3]).checked = true;
+        }
+    });
 
 });
+
+var obkljukaniSimptomi = ["vnetje",
+    "bolečina",
+    "prehlad",
+    "glavobol",
+    "vročina",
+    "gripa",
+    "kašelj",
+    "draženje",
+    "nahod",
+    "zobobol",
+    "poškodba",
+    "prebava",
+    "zaprtje",
+    "srbenje",
+    "stres",
+    "alergija",
+    "okužba",
+    "migrena",
+    "artritis",
+    "kihanje",
+    "glivice" ];

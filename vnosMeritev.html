@@ -34,17 +34,6 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
-            <!-- LEKARNAR.COM
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">lekarnar.com</a>
-            </div>
-            -->
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav col-lg-20 col-md-20 col-sm-20">
                     <li><a href="index.html">Domov</a></li>
@@ -69,7 +58,14 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8"><b>Vnos meritve vitalnih znakov uporabnika</b></div>
-                                <div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciVitalniZnak"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02|2014-11-21T11:40Z|185|80.0|36.50|118|92|98|medicinska sestra Smrketa">Ata Smrk</option></select></div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <select class="form-control input-sm" id="preberiObstojeciVitalniZnak">
+                                        <option value=""></option>
+                                        <option value="ff267a87-fe34-4401-9277-c3a7f08e1c38|2014-12-21T20:40Z|177|100|36.5|120|95|98|medicinska sestra Gozdna vila">Medvedek PU</option>
+                                        <option value="b37e7aab-694b-490a-98ac-942b03cdd1bb|2014-12-21T20:45Z|168|55|36.7|115|75|99|medicinska sestra Gozdna vila">Zelena Kapica</option>
+                                        <option value="64331fc3-65e5-40dd-9a9e-ff729f8263ec|2014-12-21T20:50Z|150|70|36.6|145|90|90|medicinska sestra Gozdna vila">Mario Vodovodar</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -114,7 +110,14 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8"><b>Vnos podatkov o simptomih za uporabnika</b></div>
-                                <div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciVitalniZnak"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02|2014-11-21T11:40Z|185|80.0|36.50|118|92|98|medicinska sestra Smrketa">Ata Smrk</option></select></div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <select class="form-control input-sm" id="preberiObstojeciSimptom">
+                                        <option value=""></option>
+                                        <option value="ff267a87-fe34-4401-9277-c3a7f08e1c38|2014-12-21T20:40Z|vnetje|bolečina">Medvedek PU</option>
+                                        <option value="b37e7aab-694b-490a-98ac-942b03cdd1bb|2014-12-21T20:45Z|prehlad|glavobol">Zelena Kapica</option>
+                                        <option value="64331fc3-65e5-40dd-9a9e-ff729f8263ec|2014-12-21T20:50Z|zobobol|nahod">Mario Vodovodar</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -125,70 +128,68 @@
 
                             <h4><span class="label label-success">Pojavljajo se naslednji simptomi:</span></h4>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="vnetje">vnetje</label>
+                                <label><input class="checkbox" type="checkbox" value="vnetje" id="vnetje">vnetje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="bolečina">bolečina</label>
+                                <label><input class="checkbox" type="checkbox" value="bolečina" id="bolečina">bolečina</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="prehlad">prehlad</label>
+                                <label><input class="checkbox" type="checkbox" value="prehlad" id="prehlad">prehlad</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="glavobol">glavobol</label>
+                                <label><input class="checkbox" type="checkbox" value="glavobol" id="glavobol">glavobol</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="vročina">vročina</label>
+                                <label><input class="checkbox" type="checkbox" value="vročina" id="vročina">vročina</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="gripa">gripa</label>
+                                <label><input class="checkbox" type="checkbox" value="gripa" id="gripa">gripa</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="kašelj">kašelj</label>
+                                <label><input class="checkbox" type="checkbox" value="kašelj" id="kašelj">kašelj</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="draženje">draženje</label>
+                                <label><input class="checkbox" type="checkbox" value="draženje" id="draženje">draženje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="nahod">nahod</label>
+                                <label><input class="checkbox" type="checkbox" value="nahod" id="nahod">nahod</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="zobobol">zobobol</label>
+                                <label><input class="checkbox" type="checkbox" value="zobobol" id="zobobol">zobobol</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="poškodba">poškodba</label>
+                                <label><input class="checkbox" type="checkbox" value="poškodba" id="poškodba">poškodba</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="prebava">prebava</label>
+                                <label><input class="checkbox" type="checkbox" value="prebava" id="prebava">prebava</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="zaprtje">zaprtje</label>
+                                <label><input class="checkbox" type="checkbox" value="zaprtje" id="zaprtje">zaprtje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="srbenje">srbenje</label>
+                                <label><input class="checkbox" type="checkbox" value="srbenje" id="srbenje">srbenje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="stres">stres</label>
+                                <label><input class="checkbox" type="checkbox" value="stres" id="stres">stres</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="alergija">alergija</label>
+                                <label><input class="checkbox" type="checkbox" value="alergija" id="alergija">alergija</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="okužba">okužba</label>
+                                <label><input class="checkbox" type="checkbox" value="okužba" id="okužba">okužba</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="migrena">migrena</label>
+                                <label><input class="checkbox" type="checkbox" value="migrena" id="migrena">migrena</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="artritis">artritis</label>
+                                <label><input class="checkbox" type="checkbox" value="artritis" id="artritis">artritis</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="kihanje">kihanje</label>
+                                <label><input class="checkbox" type="checkbox" value="kihanje" id="kihanje">kihanje</label>
                             </div>
                             <div class="checkbox">
-                                <label><input class="checkbox" type="checkbox" value="glivice">glivice</label>
+                                <label><input class="checkbox" type="checkbox" value="glivice" id="glivice">glivice</label>
                             </div>
-
-
 
                         </div>
                         <div class="form-group" style="text-align:center">
