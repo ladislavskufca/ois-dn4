@@ -496,8 +496,12 @@ function dodajSimptome() {
     var simptomi = "";
     var izbraniElementi = document.getElementsByClassName('checkbox');
     for (var i = 0; izbraniElementi[i]; i++) {
-        if (izbraniElementi[i].checked) simptomi += izbraniElementi[i].value + ", ";
+        if (izbraniElementi[i].checked) {
+            if (simptomi != "") simptomi += ", " + izbraniElementi[i].value;
+            else simptomi += izbraniElementi[i].value;
+        }
     }
+
     console.log(simptomi);
 
     sessionId = getSessionId();
@@ -513,15 +517,19 @@ function dodajSimptome() {
             headers: {"Ehr-Session": sessionId}
         });
         var podatki = {
-            // Preview Structure: https://rest.ehrscape.com/rest/v1/template/Vital%20Signs/example
+            
             "ctx/language": "en",
             "ctx/territory": "SI",
             "ctx/time": datumInUra,
-            "problem/diagnosis": simptomi
+            "medical_diagnosis/problem_diagnosis:0/problem_diagnosis|code": simptomi,
+            "medical_diagnosis/problem_diagnosis:0/problem_diagnosis|value": simptomi,
+            "medical_diagnosis/problem_diagnosis:0/date_of_onset":datumInUra,
+            "medical_diagnosis/problem_diagnosis:0/problem_context_qualifiers:0/summarisation/value":false
         };
+
         var parametriZahteve = {
             "ehrId": ehrId,
-            templateId: 'Vital Signs',
+            templateId: 'Medical Diagnosis',
             format: 'FLAT',
             committer: 'uporabnik'
         };
